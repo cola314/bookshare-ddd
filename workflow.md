@@ -234,7 +234,6 @@ NoticeUpdated
 
 UpdateNoticeError
 ├── NoticeNotFound
-├── NotNoticeOwner
 ├── InvalidTitle
 └── InvalidContent
 
@@ -253,8 +252,7 @@ NoticeDeleted
 └── noticeId: NoticeId
 
 DeleteNoticeError
-├── NoticeNotFound
-└── NotNoticeOwner
+└── NoticeNotFound
 
 deleteNotice: DeleteNoticeCommand → DeleteNoticeResult
 ```
