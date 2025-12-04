@@ -26,22 +26,42 @@
 
 ### 댓글 (Comment) - 애그리거트 루트
 ```
+Comment = ActiveComment | DeletedComment
+
+ActiveComment
 ├── id: CommentId
 ├── reviewId: ReviewId
 ├── memberId: MemberId
 ├── content: string
 ├── createdAt: DateTime
 └── updatedAt: DateTime
+
+DeletedComment
+├── id: CommentId
+├── reviewId: ReviewId
+├── memberId: MemberId
+└── deletedAt: DateTime
 ```
 
 ## 회원 컨텍스트
 
 ### 회원 (Member) - 애그리거트 루트
 ```
-├── id: MemberId
+MemberId = RegularMemberId | AdminId
+
+Member = RegularMember | AdminMember
+
+RegularMember
+├── id: RegularMemberId
 ├── name: string
 ├── email: string
-├── role: Role (회원/관리자)
+├── createdAt: DateTime
+└── updatedAt: DateTime
+
+AdminMember
+├── id: AdminId
+├── name: string
+├── email: string
 ├── createdAt: DateTime
 └── updatedAt: DateTime
 ```
@@ -60,9 +80,18 @@
 
 ### 문의 (Inquiry) - 애그리거트 루트
 ```
+Inquiry = MemberInquiry | GuestInquiry
+
+MemberInquiry
 ├── id: InquiryId
-├── memberId: MemberId? (nullable)
-├── guestContact: string? (비회원 연락처)
+├── memberId: MemberId
+├── title: string
+├── content: string
+└── createdAt: DateTime
+
+GuestInquiry
+├── id: InquiryId
+├── guestContact: string
 ├── title: string
 ├── content: string
 └── createdAt: DateTime
