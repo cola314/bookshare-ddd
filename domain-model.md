@@ -71,7 +71,7 @@ AdminMember
 ### 공지사항 (Notice) - 애그리거트 루트
 ```
 ├── id: NoticeId
-├── adminId: MemberId
+├── adminId: AdminId
 ├── title: string
 ├── content: string
 ├── createdAt: DateTime
