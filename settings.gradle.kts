@@ -8,6 +8,7 @@ pluginManagement {
 rootProject.name = "bookshare-ddd"
 
 include(
+    "common",
     "member",
     "review",
     "support"
