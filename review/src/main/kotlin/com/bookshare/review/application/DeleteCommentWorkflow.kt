@@ -2,6 +2,8 @@ package com.bookshare.review.application
 
 import com.bookshare.member.domain.MemberId
 import com.bookshare.review.domain.CommentId
+import com.bookshare.review.domain.CommentRepository
+import com.bookshare.review.domain.DeletedComment
 import java.time.LocalDateTime
 
 data class DeleteCommentCommand(
@@ -26,3 +28,22 @@ enum class DeleteCommentErrorType {
 }
 
 typealias DeleteComment = (DeleteCommentCommand) -> DeleteCommentResult
+
+fun deleteComment(commentRepository: CommentRepository): DeleteComment = { command ->
+    val comment = commentRepository.findById(command.commentId)
+    when {
+        comment == null -> DeleteCommentError(DeleteCommentErrorType.CommentNotFound)
+        comment.memberId != command.memberId -> DeleteCommentError(DeleteCommentErrorType.NotCommentOwner)
+        else -> {
+            val now = LocalDateTime.now()
+            val deleted = DeletedComment(
+                id = comment.id,
+                reviewId = comment.reviewId,
+                memberId = comment.memberId,
+                deletedAt = now
+            )
+            commentRepository.delete(deleted)
+            CommentDeleted(command.commentId, now)
+        }
+    }
+}

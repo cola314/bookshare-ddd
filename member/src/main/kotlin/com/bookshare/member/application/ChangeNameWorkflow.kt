@@ -1,6 +1,8 @@
 package com.bookshare.member.application
 
 import com.bookshare.member.domain.MemberId
+import com.bookshare.member.domain.MemberRepository
+import com.bookshare.member.domain.RegularMemberId
 import java.time.LocalDateTime
 
 data class ChangeNameCommand(
@@ -25,3 +27,23 @@ enum class ChangeNameErrorType {
 }
 
 typealias ChangeName = (ChangeNameCommand) -> ChangeNameResult
+
+fun changeName(memberRepository: MemberRepository): ChangeName = { command ->
+    val memberId = command.memberId
+    when {
+        memberId !is RegularMemberId -> ChangeNameError(ChangeNameErrorType.MemberNotFound)
+        command.newName.isBlank() -> ChangeNameError(ChangeNameErrorType.InvalidName)
+        else -> {
+            val member = memberRepository.findById(memberId)
+            when (member) {
+                null -> ChangeNameError(ChangeNameErrorType.MemberNotFound)
+                else -> {
+                    val now = LocalDateTime.now()
+                    val updated = member.copy(name = command.newName, updatedAt = now)
+                    memberRepository.save(updated)
+                    NameChanged(memberId, now)
+                }
+            }
+        }
+    }
+}

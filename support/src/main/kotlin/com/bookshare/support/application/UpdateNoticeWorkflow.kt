@@ -2,6 +2,7 @@ package com.bookshare.support.application
 
 import com.bookshare.member.domain.AdminId
 import com.bookshare.support.domain.NoticeId
+import com.bookshare.support.domain.NoticeRepository
 import java.time.LocalDateTime
 
 data class UpdateNoticeCommand(
@@ -29,3 +30,22 @@ enum class UpdateNoticeErrorType {
 }
 
 typealias UpdateNotice = (UpdateNoticeCommand) -> UpdateNoticeResult
+
+fun updateNotice(noticeRepository: NoticeRepository): UpdateNotice = { command ->
+    val notice = noticeRepository.findById(command.noticeId)
+    when {
+        notice == null -> UpdateNoticeError(UpdateNoticeErrorType.NoticeNotFound)
+        command.title.isBlank() -> UpdateNoticeError(UpdateNoticeErrorType.InvalidTitle)
+        command.content.isBlank() -> UpdateNoticeError(UpdateNoticeErrorType.InvalidContent)
+        else -> {
+            val now = LocalDateTime.now()
+            val updated = notice.copy(
+                title = command.title,
+                content = command.content,
+                updatedAt = now
+            )
+            noticeRepository.save(updated)
+            NoticeUpdated(command.noticeId, now)
+        }
+    }
+}
