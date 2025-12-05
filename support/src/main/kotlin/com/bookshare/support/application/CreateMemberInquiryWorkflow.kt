@@ -26,3 +26,5 @@ enum class CreateMemberInquiryErrorType {
     InvalidTitle,
     InvalidContent
 }
+
+typealias CreateMemberInquiry = (CreateMemberInquiryCommand) -> CreateMemberInquiryResult

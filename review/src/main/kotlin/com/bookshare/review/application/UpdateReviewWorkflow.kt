@@ -26,3 +26,5 @@ enum class UpdateReviewErrorType {
     NotReviewOwner,
     InvalidContent
 }
+
+typealias UpdateReview = (UpdateReviewCommand) -> UpdateReviewResult

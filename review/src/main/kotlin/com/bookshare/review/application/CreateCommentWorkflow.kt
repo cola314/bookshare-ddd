@@ -27,3 +27,5 @@ enum class CreateCommentErrorType {
     MemberNotFound,
     InvalidContent
 }
+
+typealias CreateComment = (CreateCommentCommand) -> CreateCommentResult

@@ -22,3 +22,5 @@ enum class LoginErrorType {
     MemberNotFound,
     InvalidPassword
 }
+
+typealias Login = (LoginCommand) -> LoginResult

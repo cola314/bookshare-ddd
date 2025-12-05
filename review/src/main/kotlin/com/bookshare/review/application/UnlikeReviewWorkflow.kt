@@ -23,3 +23,5 @@ enum class UnlikeReviewErrorType {
     ReviewNotFound,
     LikeNotFound
 }
+
+typealias UnlikeReview = (UnlikeReviewCommand) -> UnlikeReviewResult

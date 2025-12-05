@@ -26,3 +26,5 @@ enum class LikeReviewErrorType {
     MemberNotFound,
     AlreadyLiked
 }
+
+typealias LikeReview = (LikeReviewCommand) -> LikeReviewResult

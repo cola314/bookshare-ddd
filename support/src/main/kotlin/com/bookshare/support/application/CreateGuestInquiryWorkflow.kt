@@ -25,3 +25,5 @@ enum class CreateGuestInquiryErrorType {
     InvalidTitle,
     InvalidContent
 }
+
+typealias CreateGuestInquiry = (CreateGuestInquiryCommand) -> CreateGuestInquiryResult

@@ -19,3 +19,5 @@ data class LogoutError(
 enum class LogoutErrorType {
     NotLoggedIn
 }
+
+typealias Logout = (LogoutCommand) -> LogoutResult

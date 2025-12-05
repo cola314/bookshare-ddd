@@ -22,3 +22,5 @@ enum class DeleteReviewErrorType {
     ReviewNotFound,
     NotReviewOwner
 }
+
+typealias DeleteReview = (DeleteReviewCommand) -> DeleteReviewResult
