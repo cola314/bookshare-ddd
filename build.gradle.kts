@@ -17,6 +17,7 @@ subprojects {
     dependencies {
         "implementation"(kotlin("stdlib"))
         "testImplementation"(kotlin("test"))
+        "testImplementation"("io.mockk:mockk:1.13.13")
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

@@ -1,6 +1,9 @@
 package com.bookshare.member.application
 
 import com.bookshare.member.domain.MemberId
+import com.bookshare.member.domain.MemberRepository
+import com.bookshare.member.domain.PasswordEncoder
+import com.bookshare.member.domain.TokenGenerator
 
 data class LoginCommand(
     val email: String,
@@ -24,3 +27,19 @@ enum class LoginErrorType {
 }
 
 typealias Login = (LoginCommand) -> LoginResult
+
+fun login(
+    memberRepository: MemberRepository,
+    passwordEncoder: PasswordEncoder,
+    tokenGenerator: TokenGenerator
+): Login = { command ->
+    val member = memberRepository.findByEmail(command.email)
+    when {
+        member == null -> LoginError(LoginErrorType.MemberNotFound)
+        !passwordEncoder.matches(command.password, command.email) -> LoginError(LoginErrorType.InvalidPassword)
+        else -> {
+            val token = tokenGenerator.generate(member.id)
+            LoggedIn(member.id, token)
+        }
+    }
+}
