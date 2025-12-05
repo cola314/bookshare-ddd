@@ -23,3 +23,5 @@ enum class ChangeNameErrorType {
     MemberNotFound,
     InvalidName
 }
+
+typealias ChangeName = (ChangeNameCommand) -> ChangeNameResult

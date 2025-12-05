@@ -26,3 +26,5 @@ enum class CreateReviewErrorType {
     MemberNotFound,
     InvalidContent
 }
+
+typealias CreateReview = (CreateReviewCommand) -> CreateReviewResult

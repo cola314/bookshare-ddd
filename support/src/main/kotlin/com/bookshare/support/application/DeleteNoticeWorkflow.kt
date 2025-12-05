@@ -21,3 +21,5 @@ data class DeleteNoticeError(
 enum class DeleteNoticeErrorType {
     NoticeNotFound
 }
+
+typealias DeleteNotice = (DeleteNoticeCommand) -> DeleteNoticeResult

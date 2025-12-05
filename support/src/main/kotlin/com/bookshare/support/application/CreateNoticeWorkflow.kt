@@ -26,3 +26,5 @@ enum class CreateNoticeErrorType {
     InvalidTitle,
     InvalidContent
 }
+
+typealias CreateNotice = (CreateNoticeCommand) -> CreateNoticeResult

@@ -24,3 +24,5 @@ enum class DeleteCommentErrorType {
     CommentNotFound,
     NotCommentOwner
 }
+
+typealias DeleteComment = (DeleteCommentCommand) -> DeleteCommentResult

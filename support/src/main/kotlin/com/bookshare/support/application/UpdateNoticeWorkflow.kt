@@ -27,3 +27,5 @@ enum class UpdateNoticeErrorType {
     InvalidTitle,
     InvalidContent
 }
+
+typealias UpdateNotice = (UpdateNoticeCommand) -> UpdateNoticeResult
